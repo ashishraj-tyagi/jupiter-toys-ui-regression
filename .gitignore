@@ -47,6 +47,7 @@ blob-report/
 
 # Run record assembled for the dashboard
 dashboard-input/
+dashboard-link/
 site/
 jspm_packages/
 

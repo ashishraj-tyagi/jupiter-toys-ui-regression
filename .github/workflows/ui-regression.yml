@@ -150,3 +150,26 @@ jobs:
         id: deployment
         if: steps.pages.outputs.enabled == 'true'
         uses: actions/deploy-pages@v5
+
+      - name: Publish the dashboard link
+        if: always()
+        run: |
+          url="${{ steps.deployment.outputs.page_url }}"
+          if [ -z "$url" ]; then
+            url="https://${GITHUB_REPOSITORY_OWNER}.github.io/${GITHUB_REPOSITORY#*/}/"
+          fi
+          mkdir -p dashboard-link
+          printf '%s\n' "$url" > dashboard-link/dashboard-url.txt
+          {
+            echo "## Regression dashboard"
+            echo
+            echo "[${url}](${url})"
+          } >> "$GITHUB_STEP_SUMMARY"
+
+      - name: Upload the dashboard link
+        if: always()
+        uses: actions/upload-artifact@v7
+        with:
+          name: dashboard-url
+          path: dashboard-link/dashboard-url.txt
+          if-no-files-found: error
