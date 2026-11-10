@@ -44,6 +44,9 @@ node_modules/
 test-results/
 playwright-report/
 blob-report/
+
+# Run record assembled for the dashboard
+dashboard-input/
 jspm_packages/
 
 # Snowpack dependency directory (https://snowpack.dev/)
