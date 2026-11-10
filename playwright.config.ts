@@ -7,6 +7,7 @@ export default defineConfig({
   retries: process.env.CI ? 1 : 0,
   reporter: [
     ['html', { open: 'never' }],
+    ['./src/reporters/report-author.ts'],
     ['./src/reporters/summary-reporter.ts'],
   ],
   use: {
