@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Jupiter Toys regression</title>
+    <style>
+      :root {
+        color-scheme: light;
+        --ink: #1c2430;
+        --muted: #5c6570;
+        --line: #ddd6c8;
+        --paper: #f7f4ee;
+        --card: #fffdf8;
+        --header: #1c2430;
+        --passed: #1d6b45;
+        --passed-bg: #e7f6ee;
+        --failed: #9d342c;
+        --failed-bg: #fdecea;
+        --skipped: #6b6458;
+        --skipped-bg: #f3f0e8;
+        --timed: #8a5a12;
+        --timed-bg: #fff4e5;
+        --missing: #8b93a0;
+        --missing-bg: #f4f5f7;
+      }
+
+      * { box-sizing: border-box; }
+
+      body {
+        margin: 0;
+        font-family: "Segoe UI", "Helvetica Neue", Helvetica, Arial, sans-serif;
+        color: var(--ink);
+        background: var(--paper);
+      }
+
+      header {
+        background: var(--header);
+        color: #f7f4ee;
+        padding: 28px 24px 24px;
+      }
+
+      header h1 {
+        margin: 0;
+        font-size: 1.7rem;
+        font-weight: 650;
+        letter-spacing: -0.02em;
+      }
+
+      header p {
+        margin: 8px 0 0;
+        max-width: 40rem;
+        color: #d9d3c7;
+      }
+
+      main {
+        width: min(1120px, calc(100% - 32px));
+        margin: 24px auto 48px;
+      }
+
+      .stats {
+        display: grid;
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        gap: 12px;
+        margin-bottom: 22px;
+      }
+
+      .stat, section {
+        background: var(--card);
+        border: 1px solid var(--line);
+        border-radius: 12px;
+      }
+
+      .stat { padding: 14px 16px; }
+      .stat span { display: block; color: var(--muted); font-size: 0.82rem; }
+      .stat strong { display: block; margin-top: 4px; font-size: 1.35rem; font-variant-numeric: tabular-nums; }
+
+      section { padding: 8px 8px 12px; margin-top: 16px; }
+      h2 { margin: 12px 12px 8px; font-size: 1.05rem; }
+
+      .scroll { overflow-x: auto; }
+
+      table {
+        width: 100%;
+        border-collapse: collapse;
+        font-size: 0.92rem;
+      }
+
+      th, td {
+        padding: 9px 12px;
+        text-align: left;
+        border-top: 1px solid var(--line);
+        vertical-align: top;
+        white-space: nowrap;
+      }
+
+      th { color: var(--muted); font-weight: 600; font-size: 0.78rem; letter-spacing: 0.03em; text-transform: uppercase; }
+      td.number, th.number { text-align: right; font-variant-numeric: tabular-nums; }
+      .name { white-space: normal; min-width: 16rem; }
+      .file { display: block; color: var(--muted); font-size: 0.78rem; }
+
+      a { color: #1d4e89; text-decoration-thickness: 1px; }
+      a:hover { text-decoration-thickness: 2px; }
+
+      .badge, .cell {
+        display: inline-block;
+        border-radius: 999px;
+        padding: 2px 8px;
+        font-size: 0.78rem;
+        font-weight: 650;
+      }
+
+      .passed { color: var(--passed); background: var(--passed-bg); }
+      .failed { color: var(--failed); background: var(--failed-bg); }
+      .skipped { color: var(--skipped); background: var(--skipped-bg); }
+      .timedOut, .timedout, .interrupted { color: var(--timed); background: var(--timed-bg); }
+      .missing { color: var(--missing); background: var(--missing-bg); }
+
+      .empty, .error { margin: 12px; color: var(--muted); }
+      footer { width: min(1120px, calc(100% - 32px)); margin: 0 auto 32px; color: var(--muted); font-size: 0.82rem; }
+
+      @media (max-width: 720px) {
+        .stats { grid-template-columns: 1fr; }
+      }
+    </style>
+  </head>
+  <body>
+    <header>
+      <h1>Jupiter Toys regression</h1>
+      <p>Status of every published test run, and the result of each case across those runs.</p>
+    </header>
+    <main>
+      <div class="stats" id="stats"></div>
+      <section>
+        <h2>Runs</h2>
+        <div class="scroll" id="runs"></div>
+      </section>
+      <section>
+        <h2>Tests across runs</h2>
+        <div class="scroll" id="tests"></div>
+      </section>
+    </main>
+    <footer>The detailed log for a single run stays with that run's report artifact.</footer>
+    <script src="./app.js"></script>
+  </body>
+</html>

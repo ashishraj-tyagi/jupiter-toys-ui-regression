@@ -12,6 +12,8 @@ const record = {
   runUrl: process.env.RUN_URL,
   sha: process.env.COMMIT_SHA,
   branch: process.env.BRANCH,
+  repository: process.env.GITHUB_REPOSITORY || '',
+  recordedAt: new Date().toISOString(),
   workflowResult: process.env.TEST_RESULT,
   summary,
 };
