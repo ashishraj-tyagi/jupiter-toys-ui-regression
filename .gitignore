@@ -47,6 +47,7 @@ blob-report/
 
 # Run record assembled for the dashboard
 dashboard-input/
+site/
 jspm_packages/
 
 # Snowpack dependency directory (https://snowpack.dev/)

@@ -87,3 +87,66 @@ jobs:
           name: dashboard-run
           path: dashboard-input/run.json
           if-no-files-found: error
+
+  publish:
+    needs: dashboard
+    if: ${{ always() && needs.dashboard.result == 'success' && github.event_name != 'pull_request' }}
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    concurrency:
+      group: regression-dashboard
+      cancel-in-progress: false
+    permissions:
+      contents: write
+      pages: write
+      id-token: write
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - name: Check out the repository
+        uses: actions/checkout@v7
+
+      - name: Download this run
+        uses: actions/download-artifact@v8
+        with:
+          name: dashboard-run
+          path: dashboard-input
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v7
+        with:
+          node-version: 22
+
+      - name: Publish the run history
+        env:
+          RUN_ID: ${{ github.run_id }}
+        run: bash .github/scripts/publish-history.sh
+
+      - name: Check whether GitHub Pages is available
+        id: pages
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          status="$(gh api "repos/${GITHUB_REPOSITORY}/pages" --silent >/dev/null 2>&1; echo $?)"
+          if [ "$status" -eq 0 ]; then
+            echo "enabled=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "enabled=false" >> "$GITHUB_OUTPUT"
+            echo "GitHub Pages is not available for this repository. The history was stored on the gh-pages branch."
+          fi
+
+      - name: Configure GitHub Pages
+        if: steps.pages.outputs.enabled == 'true'
+        uses: actions/configure-pages@v6
+
+      - name: Upload the dashboard site
+        if: steps.pages.outputs.enabled == 'true'
+        uses: actions/upload-pages-artifact@v5
+        with:
+          path: site
+
+      - name: Deploy the dashboard
+        id: deployment
+        if: steps.pages.outputs.enabled == 'true'
+        uses: actions/deploy-pages@v5
