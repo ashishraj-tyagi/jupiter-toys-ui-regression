@@ -6,8 +6,6 @@ UI regression pack for [Jupiter Toys](https://jupiter.cloud.planittesting.com). 
 
 Run history: https://ashishraj-tyagi.github.io/jupiter-toys-ui-regression/
 
-Times on the dashboard are shown in AEST (UTC+10). Each workflow run also prints the address in the job summary and uploads it as the `dashboard-url` artifact.
-
 ## Framework
 
 Specs stay in the order of the cases. Page objects own locators and actions. Prices are compared in integer cents so totals do not drift.
