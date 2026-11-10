@@ -25,12 +25,23 @@ function classFor(status) {
 
 function formatWhen(iso) {
   if (!iso) return '—';
-  const formatted = new Intl.DateTimeFormat('en-GB', {
-    dateStyle: 'medium',
-    timeStyle: 'short',
-    timeZone: 'UTC',
-  }).format(new Date(iso));
-  return `${formatted} UTC`;
+  const parts = new Intl.DateTimeFormat('en-AU', {
+    day: '2-digit',
+    month: 'short',
+    year: 'numeric',
+    hour: '2-digit',
+    minute: '2-digit',
+    hour12: false,
+    timeZone: 'Australia/Brisbane',
+    timeZoneName: 'short',
+  }).formatToParts(new Date(iso));
+  const formatted = parts
+    .filter((part) => part.type !== 'timeZoneName')
+    .map((part) => part.value)
+    .join('')
+    .replace(/\s+/g, ' ')
+    .trim();
+  return `${formatted} AEST`;
 }
 
 function formatDuration(milliseconds) {
