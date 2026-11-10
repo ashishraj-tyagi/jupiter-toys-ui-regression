@@ -1,6 +1,47 @@
 {
   "runs": [
     {
+      "runId": "42786849272",
+      "runUrl": "https://github.com/ashishraj-tyagi/jupiter-toys-ui-regression/actions/runs/42786849272",
+      "sha": "f8c2d79c32fa1a0016905cb2b1dd226b076373f0",
+      "branch": "feature/add-dashboard",
+      "repository": "ashishraj-tyagi/jupiter-toys-ui-regression",
+      "recordedAt": "2026-11-10T09:00:36.209Z",
+      "workflowResult": "success",
+      "summary": {
+        "status": "passed",
+        "startedAt": "2026-11-10T09:00:17.734Z",
+        "duration": 6388.939,
+        "passed": 3,
+        "failed": 0,
+        "skipped": 0,
+        "timedOut": 0,
+        "tests": [
+          {
+            "title": "chromium > contact/mandatory-fields.spec.ts > mandatory field errors appear and then clear",
+            "file": "tests/contact/mandatory-fields.spec.ts",
+            "project": "chromium",
+            "status": "passed",
+            "duration": 1525
+          },
+          {
+            "title": "chromium > shop/cart-totals.spec.ts > each cart line price and subtotal add up to the total",
+            "file": "tests/shop/cart-totals.spec.ts",
+            "project": "chromium",
+            "status": "passed",
+            "duration": 1187
+          },
+          {
+            "title": "chromium > contact/successful-submission.spec.ts > submitting the mandatory fields shows the thank-you message",
+            "file": "tests/contact/successful-submission.spec.ts",
+            "project": "chromium",
+            "status": "passed",
+            "duration": 5375
+          }
+        ]
+      }
+    },
+    {
       "runId": "42755965217",
       "runUrl": "https://github.com/ashishraj-tyagi/jupiter-toys-ui-regression/actions/runs/42755965217",
       "sha": "34a1d18ebc151c9b4cb84ddcf9d756562cdc01e2",
